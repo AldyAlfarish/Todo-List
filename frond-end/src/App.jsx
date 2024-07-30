@@ -25,7 +25,7 @@ function App() {
   useEffect(() => {
     const fetchPosts = async () => {
       setLoading(true);
-      const res = await axios.get(`https://todo-list-server-psi-fawn.vercel.app/api/task`);
+      const res = await axios.get(`http://localhost:3000/api/task`);
       setPosts(res.data);
       setFilteredPosts(res.data);
       setLoading(false);
@@ -45,9 +45,9 @@ function App() {
   const addPost = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('https://todo-list-server-psi-fawn.vercel.app/api/store-data', modalData);
+      const res = await axios.post('http://localhost:3000/api/store-data', modalData);
       alert('Data created successfully');
-      const re = await axios.get(`https://todo-list-server-psi-fawn.vercel.app/api/task`);
+      const re = await axios.get(`http://localhost:3000/api/task`);
       setPosts(re.data);
       // setPosts(prevPosts => [...prevPosts, res.data]);
       resetForm();
@@ -61,7 +61,7 @@ function App() {
   const updatePost = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`https://todo-list-server-psi-fawn.vercel.app/api/posts/${modalData.id}`, modalData);
+      await axios.put(`http://localhost:3000/api/posts/${modalData.id}`, modalData);
       alert('Data updated successfully');
       setPosts(prevPosts =>
         prevPosts.map(post =>
@@ -78,7 +78,7 @@ function App() {
   // Delete
   const deletePost = async () => {
     try {
-      await axios.delete(`https://todo-list-server-psi-fawn.vercel.app/api/posts/${modalData.id}`);
+      await axios.delete(`http://localhost:3000/api/posts/${modalData.id}`);
       alert('Data deleted successfully');
       
       // Filter out the deleted post from the posts state
@@ -94,9 +94,9 @@ function App() {
   const completedTask = async (id) =>{
     console.log(modalData.id);
     try {
-      await axios.put(`https://todo-list-server-psi-fawn.vercel.app/api/completed/${id}`, []);
+      await axios.put(`http://localhost:3000/api/completed/${id}`, []);
       alert('Data updated successfully');
-      const re = await axios.get(`https://todo-list-server-psi-fawn.vercel.app/api/task`);
+      const re = await axios.get(`http://localhost:3000/api/task`);
       setPosts(re.data);
     } catch (error) {
       console.error(error);

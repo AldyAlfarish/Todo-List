@@ -1,0 +1,27 @@
+.btn{
+  box-shadow: 2px 2px 0 0 white, 4px 4px 0 0 black;
+  transition-duration: 200ms;
+}
+
+.btn:hover{
+  box-shadow: 3px 3px white, 6px 6px 0 0 black;
+  transform: translate(-2px, -2px);
+}
+
+.btn-submit{
+  box-shadow: 4px 4px 0 0 black;
+  transition-duration: 200ms;
+}
+
+.box{
+  box-shadow: 0 4px 0 0 black;
+  transition-duration: 200ms;
+}
+
+.box-title{
+  width: 95%;
+}
+
+.box-main{
+  width: 95%;
+}

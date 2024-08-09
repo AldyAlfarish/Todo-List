@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import {motion} from 'framer-motion';
+
 import Logo from './assets/to-do-list.png'
 import Warning from './assets/warning.png'
 import './index.css';
@@ -21,6 +23,7 @@ function App() {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -91,8 +94,7 @@ function App() {
     }
   };
 
-  const completedTask = async (id) =>{
-    console.log(modalData.id);
+  const completeTask = async (id) =>{
     try {
       await axios.put(`http://localhost:3000/api/completed/${id}`, []);
       alert('Data updated successfully');
@@ -163,9 +165,16 @@ function App() {
 
 
   return (
-    <div style={{width:'98%', margin:'0 auto'}}>
+    <div 
+      style={{width:'98%', margin:'0 auto'}}>
       <div className="title border-4 border-gray-700 sm:w-1/2 mx-auto mt-3">
-        <h2 className='text-4xl p-2 text-center font-medium'>Todo List12</h2>
+        <motion.h2 
+          animate={{y: '0%'}}
+          initial={{y:'-40%'}}
+          transition={{restSpeed: 5}}
+          className='text-4xl p-2 text-center font-medium'
+        >Todo List
+        </motion.h2>
       </div>
         <div className="mb-4 mx-auto w-full sm:w-1/2">
           <div className="p-4 border-4 border-gray-700 h-screen">
@@ -243,7 +252,7 @@ function App() {
                                 {post.status !== 'Completed' && (
                                   <li className='border-b-2 border-gray-700'>
                                     <button
-                                      onClick={() => completedTask(post.id)}
+                                      onClick={() => completeTask(post.id)}
                                       className="block px-2 sm:px-4 py-2 text-black font-medium text-lg"
                                     >
                                       Completed

@@ -7,6 +7,9 @@ const { where } = require("sequelize");
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+
+app.get("/", (req, res) => res.send("Express on Vercel"));
+
 app.get('/api/task',async (req, res) => {
     const data = await Task.findAll();
     
@@ -66,3 +69,4 @@ app.listen(port, () => {
     console.log("Hello World");
 });
 
+module.exports = app;

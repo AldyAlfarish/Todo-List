@@ -177,7 +177,7 @@ function App() {
   return (
     <div 
       style={{width:'98%', margin:'0 auto'}}>
-      <div className="title border-4 border-gray-700 sm:w-1/2 mx-auto mt-3">
+      <div className="title border-4 border-gray-700 sm:w-2/5 mx-auto mt-3">
         <motion.h2 
           animate={{y: '0%'}}
           initial={{y:'-40%'}}

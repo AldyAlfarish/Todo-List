@@ -186,7 +186,7 @@ function App() {
         >Todo List
         </motion.h2>
       </div>
-        <div className="mb-4 mx-auto w-full sm:w-1/2">
+         <div className="mb-4 mx-auto w-full sm:w-2/5">
           <div className="p-4 border-4 border-gray-700 h-screen">
             {/* Search Input */}
             <input
@@ -194,7 +194,7 @@ function App() {
               placeholder="Search by task name..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="ml-3 px-4 py-2 border border-gray-700 border-2 shadow-sm focus:outline-none focus:border-black"
+              className="ml-3 sm:ml-6 px-4 py-2 border border-gray-700 border-2 shadow-sm focus:outline-none focus:border-black w-[60%] sm:w-1/2"
               style={{ outline: 'none', boxShadow: 'none' }}
             />
             <button onClick={openAddModal} className='bg-white border-2 border-gray-700 text-black ml-4 p-2 font-semibold btn'>
@@ -208,21 +208,24 @@ function App() {
                 <div>
                   {/* Render your posts here */}
                   {currentPosts.map((post) => (
-                    <div className="bg-white p-3  m-3 border border-gray-700 border-2 box">
+                    <div className="bg-white p-3 my-3 border border-gray-700 border-2 box w-[90%] mx-auto">
                     <div className="flex relative" key={post.id}>
                       <div className="flex-auto">
-                        <div className="ml-6 flex gap-1">
+
+                        <div className="sm:ml-6 flex gap-1">
                           <p className="text-black">&#9679;</p>
-                          <span className="font-medium text-lg">
+                          <span className="font-medium text-base">
                             {post.task_name}
                             </span>
                         </div>
-                        <div className="flex gap-3 ml-6 mt-3">
-                          <span className={`px-2 text-black text-md font-medium ${post.status === 'Pending' ? 'border-2 border-gray-700' : 'border-2 border-gray-700'}`}>{post.status}</span>
-                          <span className="text-gray-500 font-medium">&#128197; {post.due_date}</span>
+
+                        <div className="flex gap-3 sm:ml-6 mt-3">
+                          <span className={`text-black text-md font-medium ${post.status === 'Pending' ? 'border-2 border-gray-700 px-2 py-1' : 'border-2 border-gray-700 px-1 py-[5px]'}`}>{post.status}</span>
+                          <span className="text-gray-500 font-medium">&#128197; {post.due_date.slice(0,10)}</span>
                         </div>
+
                       </div>
-                      <div className="mt-4 mr-9 sm:mr-6">
+                      <div className="mt-4 mr-1 sm:mr-6">
                           {/* Dropdown Button */}
                         {/* <div ref={dropdownRef} className="relative"> */}
                           <button

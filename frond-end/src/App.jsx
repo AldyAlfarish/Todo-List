@@ -128,7 +128,17 @@ function App() {
   const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
 
   const toggleDropdown = (id) => {
-    setDropdownOpen((prev) => ({ ...prev, [id]: !prev[id] }));
+    // setDropdownOpen((prev) => ({ ...prev, [id]: !prev[id] }));
+      setDropdownOpen((prev) => {
+      // Membuat objek baru dengan semua dropdown tertutup
+      const newDropdownState = Object.keys(prev).reduce((acc, key) => {
+        acc[key] = false;
+        return acc;
+      }, {});
+  
+      // Membuka atau menutup dropdown yang di-klik
+      return { ...newDropdownState, [id]: !prev[id] };
+    });
   };
 
   const openDetailModal = (post) => {

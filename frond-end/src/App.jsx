@@ -208,7 +208,7 @@ function App() {
                 <div>
                   {/* Render your posts here */}
                   {currentPosts.map((post) => (
-                    <div className="bg-white p-3 my-3 border border-gray-700 border-2 box w-[90%] mx-auto">
+                    <div className="bg-white p-3 my-3 border border-gray-700 border-2 box w-full mx-auto">
                     <div className="flex relative" key={post.id}>
                       <div className="flex-auto">
 

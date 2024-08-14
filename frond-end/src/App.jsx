@@ -248,7 +248,7 @@ function App() {
                           {dropdownOpen[post.id] && (
                             <div
                               id="dropdownDots"
-                              className="absolute z-10 bg-white mt-3 w-25 sm:w-44 border-2 border-gray-700"
+                              className="absolute z-10 bg-white mt-3 w-25 sm:w-44 border-2 border-gray-700 left-3/4"
                             >
                               <ul
                                 className="py-2 text-sm text-black dark:text-gray-200"

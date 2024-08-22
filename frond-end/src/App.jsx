@@ -23,7 +23,7 @@ function App() {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -47,7 +47,15 @@ function App() {
   // post
   const addPost = async (e) => {
     e.preventDefault();
+    setProgress(0);
+    
     try {
+      // Simulasi Progress
+      for (let i=0; i <= 100; i += 20){
+        setProgress(i);
+        await new Promise(resolve => setTimeout(resolve, 500));
+      }
+      
       const res = await axios.post('https://todo-list-api-ecru.vercel.app/api/store-data', modalData);
       alert('Data created successfully');
       const re = await axios.get(`https://todo-list-api-ecru.vercel.app/api/task`);
@@ -57,13 +65,22 @@ function App() {
       closeModal();
     } catch (error) {
       console.error(error);
+    }finally {
+      setProgress(0);
     }
   }
 
   // Update
   const updatePost = async (e) => {
     e.preventDefault();
+    setProgress(0);
     try {
+      // Simulasi Progress
+      for (let i=0; i <= 100; i += 20){
+        setProgress(i);
+        await new Promise(resolve => setTimeout(resolve, 500));
+      }
+      
       await axios.put(`https://todo-list-api-ecru.vercel.app/api/posts/${modalData.id}`, modalData);
       alert('Data updated successfully');
       setPosts(prevPosts =>
@@ -75,6 +92,8 @@ function App() {
       setIsEditModalOpen(false); // Close edit modal
     } catch (error) {
       console.error(error);
+    }finally {
+      setProgress(0);
     }
   };
 
@@ -220,7 +239,11 @@ function App() {
                         </div>
 
                         <div className="flex gap-3 sm:ml-6 mt-3">
-                          <span className={`text-black text-md font-medium ${post.status === 'Pending' ? 'border-2 border-gray-700 px-2 py-1' : 'border-2 border-gray-700 px-1 py-[5px]'}`}>{post.status}</span>
+                          {post.status === 'Pending' ? 
+                            <span className='text-black text-md font-medium px-2 py-1 bg-[#eb5b00] text-white'><i className="fas fa-hourglass mr-2"></i>{post.status}</span>
+                            :
+                            <span className='text-black text-md font-medium px-1 py-[5px] bg-[#399918] text-white'><i className="fas fa-check mr-1 ml-1"></i>{post.status}</span>
+                          }
                           <span className="text-gray-500 font-medium">&#128197; {post.due_date.slice(0,10)}</span>
                         </div>
 
@@ -370,6 +393,16 @@ function App() {
                 <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
                   <div className="bg-white p-4 border-4 border-gray-700 shadow-lg w-96 sm:w-1/3">
                     <h2 className="text-xl font-bold mb-4">Add Task</h2>
+                    {/* Progress Bar */}
+                    {progress > 0 && progress < 100 && (
+                      <div className="w-full bg-gray-200 rounded-full h-2 mb-4">
+                        <div 
+                          className="bg-blue-600 h-2 rounded-full transition-all duration-300 ease-in-out"
+                          style={{width: `${progress}%`}}  
+                        >
+                        </div>
+                      </div>
+                    )}
                     <form action=''>
                       <div className="mb-4">
                         <label
@@ -384,6 +417,7 @@ function App() {
                           name='task_name'
                           value={modalData.task_name}
                           onChange={handleChange}
+                          required
                           className="shadow appearance-none border-2 border-gray-700 w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-black"
                           style={{ outline: 'none', boxShadow: 'none' }}
                         />
@@ -398,6 +432,7 @@ function App() {
                         <input
                           id="newTaskDescription"
                           type='text'
+                          required
                           name='description'
                           value={modalData.description}
                           onChange={handleChange}
@@ -414,6 +449,7 @@ function App() {
                         </label>
                         <input type='date'
                           id="newTaskDescription"
+                          required
                           name='due_date'
                           value={modalData.due_date}
                           onChange={handleChange}
@@ -424,6 +460,7 @@ function App() {
                       <button
                         className="px-4 py-2 border-2 border-black text-white btn bg-green-500 hover:bg-green-600"
                         onClick={addPost}
+                         disabled={progress > 0 && progress < 100}
                       >
                         Add Task
                       </button>
@@ -431,6 +468,7 @@ function App() {
                         type="button"
                         onClick={closeModal}
                         className="ml-6 px-4 py-2 border-2 border-black text-white btn bg-red-500 hover:bg-red-600"
+                         disabled={progress > 0 && progress < 100}
                       >
                         Cancel
                       </button>
@@ -459,7 +497,7 @@ function App() {
                         Due Date
                       </div>
                       <div className="font-medium">
-                      {modalData.due_date}
+                      {modalData.due_date.slice(0,10)}
                       </div>
                     </div>
                     <div className='mt-3'>
@@ -486,6 +524,16 @@ function App() {
                 <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
                   <div className="bg-white p-4 border-4 border-gray-700 w-96 sm:w-2/5 shadow-lg">
                     <h2 className="text-xl font-bold mb-4">Edit Task</h2>
+                    {/* Progress Bar */}
+                    {progress > 0 && progress < 100 && (
+                      <div className="w-full bg-gray-200 rounded-full h-2 mb-4">
+                        <div 
+                          className="bg-blue-600 h-2 rounded-full transition-all duration-300 ease-in-out"
+                          style={{width: `${progress}%`}}  
+                        >
+                        </div>
+                      </div>
+                    )}
                     {/* Form for editing task */}
                     <form onSubmit={updatePost}>
                       <div className="mb-4">
@@ -538,6 +586,7 @@ function App() {
                       <button
                         type="submit" // Menggunakan submit untuk mengirimkan data
                         className="px-4 py-2 bg-green-500 text-white border-2 btn hover:bg-green-600 border-2 border-black"
+                         disabled={progress > 0 && progress < 100}
                       >
                         Save
                       </button>
@@ -545,6 +594,7 @@ function App() {
                         type="button"
                         onClick={closeModal}
                         className="ml-5 px-4 py-2 bg-red-500 text-white btn hover:bg-red-600 border-2 border-black"
+                         disabled={progress > 0 && progress < 100}
                       >
                         Cancel
                       </button>

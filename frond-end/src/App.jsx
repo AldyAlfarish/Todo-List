@@ -504,7 +504,7 @@ function App() {
                       <div className="text-black text-xl font-medium">
                       Descriptions
                       </div>
-                      <div className="font-medium text-gray-700">
+                      <div className="font-medium text-gray-700 break-words overflow-hidden">
                       {modalData.description}
                       </div>
                     </div>

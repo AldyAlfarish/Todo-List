@@ -99,7 +99,15 @@ function App() {
 
   // Delete
   const deletePost = async () => {
+    setProgress(0);
+    
     try {
+      // Simulasi Progress
+      for (let i=0; i <= 100; i += 20){
+        setProgress(i);
+        await new Promise(resolve => setTimeout(resolve, 500));
+      }
+      
       await axios.delete(`https://todo-list-api-ecru.vercel.app/api/posts/${modalData.id}`);
       alert('Data deleted successfully');
       
@@ -607,17 +615,31 @@ function App() {
               {isDeleteModalOpen && (
                 <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
                   <div className="bg-white p-4 border-4 border-gray-700 shadow-lg w-96 sm:w-2/5">
+                    {/* Progress Bar */}
+                    {progress > 0 && progress < 100 && (
+                      <div className="w-full bg-gray-200 rounded-full h-2 mb-4">
+                        <div 
+                          className="bg-blue-600 h-2 rounded-full transition-all duration-300 ease-in-out"
+                          style={{width: `${progress}%`}}  
+                        >
+                        </div>
+                      </div>
+                    )}
                   <div className="flex  justify-center items-center">
                   <img src={Warning} className='w-1/3' />
                   </div>
                     <h2 className="text-3xl text-center font-bold mb-4">Are you sure you want to delete this task?</h2>
                     <div className="text-center">
-                    <button onClick={deletePost} className="mt-4 px-4 py-2 bg-red-500 text-white border-2 border-black btn">
+                    <button onClick={deletePost} 
+                      className="mt-4 px-4 py-2 bg-red-500 text-white border-2 border-black btn"
+                      disabled={progress > 0 && progress < 100}
+                      >
                       Delete
                     </button>
                     <button
                       onClick={closeModal}
                       className="mt-4 ml-6 px-4 py-2 bg-gray-500 text-white border-2 border-black btn"
+                      disabled={progress > 0 && progress < 100}
                     >
                       Cancel
                     </button>

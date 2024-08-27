@@ -109,7 +109,7 @@ function App() {
       }
       
       await axios.delete(`https://todo-list-api-ecru.vercel.app/api/posts/${modalData.id}`);
-      alert('Data deleted successfully');
+      // alert('Data deleted successfully');
       
       // Filter out the deleted post from the posts state
       setPosts(prevPosts =>
